@@ -11,6 +11,7 @@ type Language = {
 }
 
 type Country = {
+  alpha3Code: string;
   name: string;
   nativeName: string;
   population: number;

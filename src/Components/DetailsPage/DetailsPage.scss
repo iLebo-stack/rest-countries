@@ -58,6 +58,7 @@
     background-color: #fff;
     box-shadow: 0 0 6px 0px #b9b9b9;
     border-radius: 5px;
+    cursor: pointer;
   }
 }
 
@@ -97,4 +98,36 @@
 
 .buttons {
   grid-area: buttons;
+}
+
+.loading_animation {
+  position: absolute;
+  border: 5px solid #000;
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation: loader 1s linear infinite;
+
+  &::after {
+    content: "";
+    position: absolute;
+    background-color: #fafafa;
+    width: 55px;
+    height: 55px;
+    left: -5px;
+    top: -5px;
+  }
+}
+
+@keyframes loader {
+  0% {
+    transform: translate(-50%, -50%) rotate(0);
+  }
+
+  100% {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
 }
