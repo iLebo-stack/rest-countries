@@ -12,6 +12,7 @@ type Language = {
 
 type Country = {
   alpha3Code: string;
+  altSpellings: string[];
   name: string;
   nativeName: string;
   population: number;
@@ -29,6 +30,6 @@ type Country = {
 }
 
 type CountryData = {
-  countries: Country[],
+  countries: Country[] | null,
   selectedCountry: Country | null,
 }

@@ -5,7 +5,7 @@ import { Filter } from './Components/Filter/Filter';
 
 function App() {
   const [countryData, setCountryData] = useState<CountryData>({
-    countries: [],
+    countries: null,
     selectedCountry: null,
   });
   const [isLoading, setIsLoading] = useState(true);
@@ -37,23 +37,27 @@ function App() {
 
   const handleSearchQuery = useCallback(
     (query: string) => {
-      return fetch(`https://restcountries.com/v2/name/${query}`)
-        .then(response => {
-          if (response.status !== 200) {
-            setIsError(true);
-
-            throw new Error(response.statusText);
-          }
-
-          return response.json();
-        })
+      return fetch('https://restcountries.com/v2/all')
+        .then(response => response.json())
         .then(data => {
-          if (data) {
-            setCountryData(prevState => ({
-              ...prevState,
-              countries: data,
-            }));
-          }
+          setCountryData(prevState => ({
+            ...prevState,
+            countries: data.filter((countryInfo: Country) => {
+              const lowerCasedQuery = query.toLowerCase();
+
+              if (countryInfo.name.toLowerCase().includes(lowerCasedQuery)) {
+                return true;
+              }
+
+              if (countryInfo.altSpellings) {
+                return countryInfo.altSpellings.some(spelling => {
+                  return spelling.toLowerCase().includes(lowerCasedQuery);
+                });
+              }
+
+              return false;
+            }),
+          }));
         });
     },
     [],
@@ -63,6 +67,13 @@ function App() {
     () => setIsError(false),
     [],
   );
+
+  useEffect(
+    () => (countryData.countries?.length === 0
+            ? setIsError(true)
+            : setIsError(false)),
+    [countryData.countries]
+  )
 
   useEffect(
     () => {

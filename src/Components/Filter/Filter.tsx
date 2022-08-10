@@ -63,6 +63,7 @@ export const Filter: React.FC<Props> = React.memo(
                     ...prevState,
                     searchQuery: event.target.value,
                   }));
+                  handleSetError();
                 }}
                 onFocus={handleSetError}
               />
