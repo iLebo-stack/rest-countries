@@ -87,6 +87,8 @@ export const Filter: React.FC<Props> = React.memo(
                   }));
                 }}
               />
+
+              <button type="submit" className='submit-button'>{'>'}</button>
   
               {loading.searchQueryIsLoading && <div className="loading-animation"></div>}
             </div>
