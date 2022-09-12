@@ -27,12 +27,25 @@ export const DetailsPage: React.FC<Props> = React.memo(
     );
 
     return (
-      <section className="details-page">
+      <section
+        className="details-page"
+        onLoad={() => {
+          const detailsPage = document.querySelector('.details-page');
+
+          detailsPage?.classList.add('details-page--pop-into-view');
+        }}
+      >
         <button
           type="button"
           className="details-page__button"
           onClick={() => {
-            handleSetSelectedCountry(null);
+            const detailsPage = document.querySelector('.details-page');
+
+            detailsPage?.classList.remove('details-page--pop-into-view');
+
+            setTimeout(() => {
+              handleSetSelectedCountry(null);
+            }, 350);
           }}
         >
           Back

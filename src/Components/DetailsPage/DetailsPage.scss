@@ -1,6 +1,16 @@
 .details-page {
   font-size: 16px;
   margin: 30px 20px;
+  min-height: 70vh;
+
+  opacity: 0;
+  transform: scale(.5);
+  transition: transform 350ms, opacity 350ms;
+
+  &--pop-into-view {
+    transform: scale(1);
+    opacity: 1;
+  }
 
   @media screen and (min-width: 426px) {
     margin-right: 50px;
